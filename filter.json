@@ -1,0 +1,28 @@
+{
+  "kata_kunci": [
+    "driver dump truck",
+    "sopir trailer",
+    "driver mixer",
+    "operator DT",
+    "driver truk tambang"
+  ],
+  "lokasi": [
+    "Batam",
+    "Kepulauan Riau"
+  ],
+  "exclude": [
+    "magang",
+    "part time",
+    "sim a",
+    "fresh graduate tanpa pengalaman"
+  ],
+  "situs_sasaran": [
+    "jobstreet.co.id",
+    "karir.com",
+    "loker.id",
+    "id.indeed.com",
+    "glints.com",
+    "linkedin.com"
+  ],
+  "maks_hasil_per_hari": 15
+}

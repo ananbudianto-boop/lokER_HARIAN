@@ -1,0 +1,39 @@
+name: Laporan Loker Harian
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # 00:00 UTC = 07:00 WIB
+  workflow_dispatch: {}  # supaya bisa dites manual dari tab Actions
+
+permissions:
+  contents: write
+
+jobs:
+  cari-loker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Jalankan pencarian loker
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+        run: python job_search.py
+
+      - name: Commit riwayat terbaru
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add riwayat.json
+          git diff --staged --quiet || git commit -m "Update riwayat loker $(date -u +'%Y-%m-%d')"
+          git push
